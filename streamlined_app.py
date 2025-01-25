@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 # Initialize the app
 st.set_page_config(page_title="Total Balance and Linked Accounts", layout="wide", initial_sidebar_state="expanded")
@@ -39,10 +40,12 @@ df_accounts["Formatted Balance"] = df_accounts.apply(lambda row: format_currency
 st.subheader("Linked Accounts")
 st.dataframe(df_accounts[["Account Name", "Formatted Balance"]])
 
-# Pie chart for account balances
+# Bar chart for account balances
 st.subheader("Account Balances Distribution")
-fig, ax = plt.subplots()
-ax.pie(df_accounts["Balance (USD)"], labels=df_accounts["Account Name"], autopct='%1.1f%%', startangle=90)
-ax.axis('equal')  # Equal aspect ratio ensures the pie chart is circular.
+fig, ax = plt.subplots(figsize=(10, 5))
+sns.barplot(x="Account Name", y="Balance (USD)", data=df_accounts, palette="Blues_d", ax=ax)
 ax.set_title("Distribution of Account Balances (USD)")
+ax.set_ylabel("Balance (USD)")
+ax.set_xlabel("Account Name")
+plt.xticks(rotation=45)
 st.pyplot(fig)
