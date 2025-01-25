@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import matplotlib.pyplot as plt
 
 # Initialize the app
 st.set_page_config(page_title="Total Balance and Linked Accounts", layout="wide", initial_sidebar_state="expanded")
@@ -37,3 +38,11 @@ def format_currency(value, currency):
 df_accounts["Formatted Balance"] = df_accounts.apply(lambda row: format_currency(row["Balance"], row["Currency"]), axis=1)
 st.subheader("Linked Accounts")
 st.dataframe(df_accounts[["Account Name", "Formatted Balance"]])
+
+# Pie chart for account balances
+st.subheader("Account Balances Distribution")
+fig, ax = plt.subplots()
+ax.pie(df_accounts["Balance (USD)"], labels=df_accounts["Account Name"], autopct='%1.1f%%', startangle=90)
+ax.axis('equal')  # Equal aspect ratio ensures the pie chart is circular.
+ax.set_title("Distribution of Account Balances (USD)")
+st.pyplot(fig)
