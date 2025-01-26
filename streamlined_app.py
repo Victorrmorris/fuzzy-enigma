@@ -186,26 +186,27 @@ if st.button("Get Credit Card Insights"):
     card_response = credit_card_insights(selected_card)
     st.write(card_response)
 
-# Spending Heatmap
-st.subheader("Spending Heatmap")
-heatmap_data = np.random.randint(100, 500, size=(5, 7))  # Random weekly data
+# Generate realistic spending heatmap data
+heatmap_data = np.array([
+    [120, 80, 90, 50, 60, 100, 70],  # Week 1 with moderate spending
+    [70, 90, 250, 60, 80, 120, 50],  # Week 2 with a high-spend day for a bill
+    [60, 75, 80, 400, 85, 90, 70],   # Week 3 with a large payment (e.g., rent)
+    [50, 60, 75, 100, 60, 85, 90],   # Week 4 with regular spending
+    [100, 80, 300, 60, 50, 120, 70]  # Week 5 with another high-spend day
+])
 heatmap_df = pd.DataFrame(heatmap_data, columns=["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
                           index=["Week 1", "Week 2", "Week 3", "Week 4", "Week 5"])
-fig, ax = plt.subplots(figsize=(10, 6))
-sns.heatmap(heatmap_df, annot=True, fmt="d", cmap="coolwarm", ax=ax)
-ax.set_title("Weekly Spending Heatmap")
-st.pyplot(fig)
 
 # Heatmap Insights
 st.subheader("Heatmap Insights")
 st.markdown("### Key Observations:")
-st.markdown("1. **Spending Concentration:** Saturdays consistently show the highest spending, likely due to leisure and shopping activities.")
-st.markdown("2. **Low-Spending Days:** Fridays and Sundays tend to have moderate spending, with weekday spending spread out relatively evenly.")
-st.markdown("3. **Week-to-Week Variability:** Week 2 shows the highest spending overall, while Week 3 demonstrates more balanced spending across categories.")
+st.markdown("1. **High-Spending Days:** Specific days each month (e.g., Wednesdays or Thursdays) show high spending, likely tied to recurring bills or rent payments.")
+st.markdown("2. **Moderate Spending Days:** Most days involve routine expenses in the $60-$120 range, indicating consistent budgeting for groceries, transportation, and dining out.")
+st.markdown("3. **Weekend Trends:** Saturdays generally show slightly higher spending compared to weekdays, aligning with leisure or social activities.")
 st.markdown("### Actionable Takeaways:")
-st.markdown("- Focus on budgeting for Saturdays to manage discretionary expenses more effectively.")
-st.markdown("- Take advantage of low-spending days like weekdays to save or reallocate funds.")
-st.markdown("- Monitor high-spending weeks closely to identify patterns and adjust future budgets accordingly.")
+st.markdown("- Budget for high-spend days at the start of each month to cover rent or major bills without impacting daily expenses.")
+st.markdown("- Use insights from low-spend weekdays to allocate additional funds for savings or discretionary use.")
+st.markdown("- Monitor weekend spending to avoid exceeding discretionary budgets.")
 
 # Chatbot for spending and budgeting insights
 st.subheader("Linked Accounts Insights")
