@@ -255,7 +255,7 @@ if st.button("Get Spending Insights"):
 st.subheader("Lifestyle Event Support")
 def lifestyle_event_response(prompt):
     if "move" in prompt.lower():  # Adjust to capture all forms of "move"
-        return "For frequent moves, consider consolidating accounts and using DECC's budgeting tools to track relocation expenses."
+        return "For frequent moves, consider budgeting ahead and pre-planning reimbursable and non reimbursable expenses. Pay advances may be an option for expensive or short notice moves to reduce credit card debt."
     elif "deployment" in prompt.lower():
         return "For deployments, use DECC's multi-currency tracking and reimbursement tools to stay on top of international expenses."
     elif "retirement" in prompt.lower():
