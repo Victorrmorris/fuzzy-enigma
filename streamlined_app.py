@@ -78,7 +78,7 @@ for _, row in df_spending.iterrows():
     st.progress(amount / 3000, text=f"{category}: ${amount:,.2f} spent out of $3000")
 
 # Chatbot for spending and budgeting insights
-st.subheader("Spending and Budgeting Insights Chatbot")
+st.subheader("Linked Account Insights")
 def chatbot_response(account_name):
     account = df_accounts[df_accounts["Account Name"] == account_name]
     if account.empty:
@@ -97,7 +97,7 @@ if st.button("Get Insights"):
     st.write(response)
 
 # Enhanced chatbot for spending categories
-st.subheader("Spending Insights Chatbot")
+st.subheader("Spending Insights")
 def spending_chatbot_response(category_name):
     category = df_spending[df_spending["Category"] == category_name]
     if category.empty:
