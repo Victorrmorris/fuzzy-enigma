@@ -49,3 +49,22 @@ ax.set_ylabel("Balance (USD)")
 ax.set_xlabel("Account Name")
 plt.xticks(rotation=45)
 st.pyplot(fig)
+
+# Chatbot for spending and budgeting insights
+st.subheader("Spending and Budgeting Insights Chatbot")
+def chatbot_response(account_name):
+    account = df_accounts[df_accounts["Account Name"] == account_name]
+    if account.empty:
+        return "Sorry, I couldn't find any information for that account. Please try again."
+    balance = account.iloc[0]["Balance (USD)"]
+    if balance < 100:
+        return f"Your balance in {account_name} is quite low (${balance:.2f}). Consider transferring funds to avoid overdraft."
+    elif balance < 1000:
+        return f"Your balance in {account_name} is below $1000. Monitor your spending carefully."
+    else:
+        return f"Your balance in {account_name} is healthy (${balance:.2f}). Keep up the good financial habits!"
+
+selected_account = st.selectbox("Select an account to get insights:", df_accounts["Account Name"].tolist())
+if st.button("Get Insights"):
+    response = chatbot_response(selected_account)
+    st.write(response)
