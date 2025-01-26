@@ -71,7 +71,7 @@ plt.xticks(rotation=45)
 st.pyplot(fig)
 
 # Budget progress section
-st.subheader("Germant and US Household Budgets")
+st.subheader("Germany and US Household Budgets")
 total_spent = df_spending["Amount"].sum()
 st.write(f"**Total Spent:** ${total_spent:,.2f}")
 
