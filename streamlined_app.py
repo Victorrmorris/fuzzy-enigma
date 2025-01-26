@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Initialize the app
-st.set_page_config(page_title="Total Balance and Linked Accounts", layout="wide", initial_sidebar_state="expanded")
-st.title("Total Balance and Linked Accounts")
+st.set_page_config(page_title="DECC Interntional Banking Dashboard", layout="wide", initial_sidebar_state="expanded")
+st.title("DECC Interntional Banking Dashboard")
 
 # Placeholder data for accounts
 accounts_data = [
@@ -68,7 +68,7 @@ plt.xticks(rotation=45)
 st.pyplot(fig)
 
 # Monthly spending distribution
-st.subheader("Monthly Spending Distribution")
+st.subheader("Monthly Spending")
 fig, ax = plt.subplots(figsize=(8, 6))
 sns.barplot(x="Category", y="Amount", data=df_spending, palette="Pastel1", ax=ax)
 ax.set_title("Spending by Category")
@@ -107,11 +107,11 @@ def credit_card_insights(card_name):
     credit_limit = card.iloc[0]["Credit Limit"]
     utilization = card.iloc[0]["Utilization (%)"]
     if utilization > 30:
-        return (f"The utilization on your {card_name} is high at {utilization:.2f}%. Paying down your balance from ${balance:,.2f} "
-                f"closer to ${0.3 * credit_limit:,.2f} could improve your credit score.")
+        return (f"The utilization on your {card_name} is high at {utilization:.2f}%. To improve your credit score, try to pay down "
+                f"your balance from ${balance:,.2f} to below ${0.3 * credit_limit:,.2f}. Maintaining a utilization below 30% is recommended.")
     else:
-        return (f"Your utilization on {card_name} is healthy at {utilization:.2f}%. Great job keeping your balance "
-                f"low relative to your credit limit of ${credit_limit:,.2f}.")
+        return (f"Your utilization on {card_name} is excellent at {utilization:.2f}%. You're effectively managing your credit "
+                f"with a balance of ${balance:,.2f} and a credit limit of ${credit_limit:,.2f}. Keep it up!")
 
 selected_card = st.selectbox("Select a credit card to get insights:", df_credit_cards["Credit Card"].tolist())
 if st.button("Get Credit Card Insights"):
