@@ -188,7 +188,7 @@ if st.button("Get Credit Card Insights"):
 
 # Spending Heatmap
 st.subheader("Spending Heatmap")
-heatmap_data = np.random.randint(60, 300, size=(5, 7))  # Random weekly data
+heatmap_data = np.random.randint(100, 500, size=(5, 7))  # Random weekly data
 heatmap_df = pd.DataFrame(heatmap_data, columns=["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
                           index=["Week 1", "Week 2", "Week 3", "Week 4", "Week 5"])
 fig, ax = plt.subplots(figsize=(10, 6))
