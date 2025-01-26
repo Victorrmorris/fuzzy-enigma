@@ -176,10 +176,10 @@ def credit_card_insights(card_name):
     utilization = card.iloc[0]["Utilization (%)"]
     if utilization > 30:
         return (f"The utilization on your {card_name} is high at {utilization:.2f}%. To improve your credit score, try to pay down "
-                f"your balance from ${balance:,.2f} to below ${0.3 * credit_limit:,.2f}. Maintaining a utilization below 30% is recommended.")
+                f"your balance from ${balance:, .2f} to below ${0.3 * credit_limit:, .2f}. Maintaining a utilization below 30% is recommended.")
     else:
         return (f"Your utilization on {card_name} is excellent at {utilization:.2f}%. You're effectively managing your credit "
-                f"with a balance of ${balance:,.2f} and a credit limit of ${credit_limit:,.2f}. Keep it up!")
+                f"with a balance of ${balance:, .2f} and a credit limit of ${credit_limit:, .2f}. Keep it up!")
 
 selected_card = st.selectbox("Select a credit card to get insights:", df_credit_cards["Credit Card"].tolist())
 if st.button("Get Credit Card Insights"):
