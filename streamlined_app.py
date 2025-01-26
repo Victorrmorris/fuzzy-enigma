@@ -205,7 +205,7 @@ if st.button("Get Spending Insights"):
 # Lifestyle Event Chat Dialog
 st.subheader("Lifestyle Event Support Chat")
 def lifestyle_event_response(prompt):
-    if "moving" in prompt.lower():
+    if "move" in prompt.lower():  # Adjust to capture all forms of "move"
         return "For frequent moves, consider consolidating accounts and using DECC's budgeting tools to track relocation expenses."
     elif "deployment" in prompt.lower():
         return "For deployments, use DECC's multi-currency tracking and reimbursement tools to stay on top of international expenses."
