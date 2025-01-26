@@ -17,6 +17,15 @@ accounts_data = [
     {"Account Name": "Greenlight (Kids)", "Balance": 300.00, "Currency": "USD"}
 ]
 
+# Placeholder data for spending categories
+spending_data = [
+    {"Category": "Groceries", "Amount": 1200},
+    {"Category": "Rent", "Amount": 2500},
+    {"Category": "Entertainment", "Amount": 600},
+    {"Category": "Utilities", "Amount": 400},
+    {"Category": "Transportation", "Amount": 300}
+]
+
 # Placeholder data for Germany and US budgets
 germany_budget_data = [
     {"Category": "Transportation", "Amount": 62.80},
@@ -65,15 +74,6 @@ st.pyplot(fig_us)
 total_combined_spent = germany_total_spent + us_total_spent
 remaining_combined_budget = 3200 + 3000 - total_combined_spent
 st.info(f"**AI Financial Analyst:** You have ${remaining_combined_budget:,.2f} remaining for both of your budgets this month.")
-
-# Placeholder data for spending categories
-spending_data = [
-    {"Category": "Groceries", "Amount": 1200},
-    {"Category": "Rent", "Amount": 2500},
-    {"Category": "Entertainment", "Amount": 600},
-    {"Category": "Utilities", "Amount": 400},
-    {"Category": "Transportation", "Amount": 300}
-]
 
 # Placeholder data for credit cards
 credit_card_data = [
