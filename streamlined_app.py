@@ -2,10 +2,11 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import numpy as np
 
 # Initialize the app
-st.set_page_config(page_title="DECC Interntional Banking Dashboard", layout="wide", initial_sidebar_state="expanded")
-st.title("DECC Interntional Banking Dashboard")
+st.set_page_config(page_title="Total Balance and Linked Accounts", layout="wide", initial_sidebar_state="expanded")
+st.title("Total Balance and Linked Accounts")
 
 # Placeholder data for accounts
 accounts_data = [
@@ -31,10 +32,17 @@ credit_card_data = [
     {"Credit Card": "USAA", "Balance": 3774.12, "Credit Limit": 5000.00}
 ]
 
+# Placeholder data for spending trends
+spending_trend_data = {
+    "Date": pd.date_range(start="2023-01-01", periods=12, freq="M"),
+    "Spending": np.random.randint(500, 3000, 12)
+}
+
 # Dataframe for accounts
 df_accounts = pd.DataFrame(accounts_data)
 df_spending = pd.DataFrame(spending_data)
 df_credit_cards = pd.DataFrame(credit_card_data)
+df_spending_trend = pd.DataFrame(spending_trend_data)
 
 # Calculate total balance
 currency_conversion_rates = {"USD": 1, "EUR": 1.09}  # Example conversion rates
@@ -68,7 +76,7 @@ plt.xticks(rotation=45)
 st.pyplot(fig)
 
 # Monthly spending distribution
-st.subheader("Monthly Spending")
+st.subheader("Monthly Spending Distribution")
 fig, ax = plt.subplots(figsize=(8, 6))
 sns.barplot(x="Category", y="Amount", data=df_spending, palette="Pastel1", ax=ax)
 ax.set_title("Spending by Category")
@@ -77,16 +85,27 @@ ax.set_xlabel("Category")
 plt.xticks(rotation=45)
 st.pyplot(fig)
 
+# Cumulative Spending Trend
+st.subheader("Cumulative Spending Trend")
+fig, ax = plt.subplots(figsize=(10, 5))
+df_spending_trend["Cumulative Spending"] = df_spending_trend["Spending"].cumsum()
+sns.lineplot(x="Date", y="Cumulative Spending", data=df_spending_trend, marker="o", ax=ax)
+ax.set_title("Cumulative Spending Over Time")
+ax.set_ylabel("Cumulative Spending (USD)")
+ax.set_xlabel("Date")
+plt.xticks(rotation=45)
+st.pyplot(fig)
+
 # Budget progress section
-st.subheader("Germany and US Household Budgeting")
+st.subheader("Budget Management")
 total_spent = df_spending["Amount"].sum()
 st.write(f"**Total Spent:** ${total_spent:,.2f}")
 
 for _, row in df_spending.iterrows():
     category = row["Category"]
     amount = row["Amount"]
-    progress = min(amount / 6000, 1.0)  # Limit to 100%
-    st.text(f"{category}: ${amount:,.2f} spent out of $6000")
+    progress = min(amount / 3000, 1.0)  # Limit to 100%
+    st.text(f"{category}: ${amount:,.2f} spent out of $3000")
     st.progress(progress)
 
 # Credit Card Section
@@ -118,8 +137,18 @@ if st.button("Get Credit Card Insights"):
     card_response = credit_card_insights(selected_card)
     st.write(card_response)
 
+# Spending Heatmap
+st.subheader("Spending Heatmap")
+heatmap_data = np.random.randint(100, 500, size=(5, 7))  # Random weekly data
+heatmap_df = pd.DataFrame(heatmap_data, columns=["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+                          index=["Week 1", "Week 2", "Week 3", "Week 4", "Week 5"])
+fig, ax = plt.subplots(figsize=(10, 6))
+sns.heatmap(heatmap_df, annot=True, fmt="d", cmap="coolwarm", ax=ax)
+ax.set_title("Weekly Spending Heatmap")
+st.pyplot(fig)
+
 # Chatbot for spending and budgeting insights
-st.subheader("Linked Accounts Insights")
+st.subheader("Spending and Budgeting Insights Chatbot")
 def chatbot_response(account_name):
     account = df_accounts[df_accounts["Account Name"] == account_name]
     if account.empty:
@@ -141,7 +170,7 @@ if st.button("Get Insights"):
     st.write(response)
 
 # Enhanced chatbot for spending categories
-st.subheader("Spending Insights")
+st.subheader("Spending Insights Chatbot")
 def spending_chatbot_response(category_name):
     category = df_spending[df_spending["Category"] == category_name]
     if category.empty:
