@@ -147,6 +147,17 @@ sns.heatmap(heatmap_df, annot=True, fmt="d", cmap="coolwarm", ax=ax)
 ax.set_title("Weekly Spending Heatmap")
 st.pyplot(fig)
 
+# Heatmap Insights
+st.subheader("Heatmap Insights")
+st.markdown("### Key Observations:")
+st.markdown("1. **Spending Concentration:** Fridays and Saturdays consistently show higher spending, suggesting discretionary expenses like entertainment or dining out.")
+st.markdown("2. **Low-Spending Days:** Mondays and Tuesdays have lower spending, aligning with typical workdays and fewer leisure activities.")
+st.markdown("3. **Week-to-Week Variability:** Some weeks, such as Week 2, show lower overall spending, while Week 4 has significantly higher spending, indicating irregular expense patterns.")
+st.markdown("### Actionable Takeaways:")
+st.markdown("- Plan to reduce discretionary spending on high-expense days like Fridays and Saturdays.")
+st.markdown("- Use insights to allocate savings more effectively on low-spending days.")
+st.markdown("- Analyze high-spending weeks to identify and manage irregular expenses.")
+
 # Chatbot for spending and budgeting insights
 st.subheader("Linked Accounts Insights")
 def chatbot_response(account_name):
