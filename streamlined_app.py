@@ -16,8 +16,18 @@ accounts_data = [
     {"Account Name": "Greenlight (Kids)", "Balance": 300.00, "Currency": "USD"}
 ]
 
+# Placeholder data for spending categories
+spending_data = [
+    {"Category": "Groceries", "Amount": 1200},
+    {"Category": "Rent", "Amount": 2500},
+    {"Category": "Entertainment", "Amount": 600},
+    {"Category": "Utilities", "Amount": 400},
+    {"Category": "Transportation", "Amount": 300}
+]
+
 # Dataframe for accounts
 df_accounts = pd.DataFrame(accounts_data)
+df_spending = pd.DataFrame(spending_data)
 
 # Calculate total balance
 currency_conversion_rates = {"USD": 1, "EUR": 1.09}  # Example conversion rates
@@ -50,6 +60,23 @@ ax.set_xlabel("Account Name")
 plt.xticks(rotation=45)
 st.pyplot(fig)
 
+# Monthly spending distribution
+st.subheader("Monthly Spending Distribution")
+fig, ax = plt.subplots(figsize=(8, 6))
+sns.barplot(x="Category", y="Amount", data=df_spending, palette="Pastel1", ax=ax)
+ax.set_title("Spending by Category")
+ax.set_ylabel("Amount (USD)")
+ax.set_xlabel("Category")
+plt.xticks(rotation=45)
+st.pyplot(fig)
+
+# Budget alerts and progress
+st.subheader("Budget Progress")
+for _, row in df_spending.iterrows():
+    category = row["Category"]
+    amount = row["Amount"]
+    st.progress(amount / 3000, text=f"{category}: ${amount:,.2f} spent out of $3000")
+
 # Chatbot for spending and budgeting insights
 st.subheader("Spending and Budgeting Insights Chatbot")
 def chatbot_response(account_name):
@@ -68,3 +95,22 @@ selected_account = st.selectbox("Select an account to get insights:", df_account
 if st.button("Get Insights"):
     response = chatbot_response(selected_account)
     st.write(response)
+
+# Enhanced chatbot for spending categories
+st.subheader("Spending Insights Chatbot")
+def spending_chatbot_response(category_name):
+    category = df_spending[df_spending["Category"] == category_name]
+    if category.empty:
+        return "Sorry, I couldn't find any information for that category. Please try again."
+    amount = category.iloc[0]["Amount"]
+    if amount > 2000:
+        return f"You have spent a lot on {category_name} (${amount:.2f}). Consider reducing expenses in this category."
+    elif amount > 1000:
+        return f"Your spending on {category_name} (${amount:.2f}) is moderate. Keep an eye on it."
+    else:
+        return f"Your spending on {category_name} (${amount:.2f}) is within a healthy range. Good job!"
+
+selected_category = st.selectbox("Select a spending category to get insights:", df_spending["Category"].tolist())
+if st.button("Get Spending Insights"):
+    category_response = spending_chatbot_response(selected_category)
+    st.write(category_response)
