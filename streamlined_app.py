@@ -176,7 +176,7 @@ def chatbot_response(account_name):
                 "Explore DECC's investment insights to make your money work for you.")
 
 selected_account = st.selectbox("Select an account to get insights:", df_accounts["Account Name"].tolist())
-if st.button("Get Insights"):
+if st.button("Get Account Insights"):
     response = chatbot_response(selected_account)
     st.write(response)
 
