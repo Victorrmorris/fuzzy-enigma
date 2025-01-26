@@ -5,8 +5,8 @@ import seaborn as sns
 import numpy as np
 
 # Initialize the app
-st.set_page_config(page_title="Total Balance and Linked Accounts", layout="wide", initial_sidebar_state="expanded")
-st.title("Total Balance and Linked Accounts")
+st.set_page_config(page_title="DECC International Banking Dashboard", layout="wide", initial_sidebar_state="expanded")
+st.title("DECC International Banking Dashboard")
 
 # Placeholder data for accounts
 accounts_data = [
@@ -76,7 +76,7 @@ plt.xticks(rotation=45)
 st.pyplot(fig)
 
 # Monthly spending distribution
-st.subheader("Monthly Spending Distribution")
+st.subheader("Monthly Spending")
 fig, ax = plt.subplots(figsize=(8, 6))
 sns.barplot(x="Category", y="Amount", data=df_spending, palette="Pastel1", ax=ax)
 ax.set_title("Spending by Category")
@@ -97,15 +97,15 @@ plt.xticks(rotation=45)
 st.pyplot(fig)
 
 # Budget progress section
-st.subheader("Budget Management")
+st.subheader("Germany and US Household Budgeting")
 total_spent = df_spending["Amount"].sum()
 st.write(f"**Total Spent:** ${total_spent:,.2f}")
 
 for _, row in df_spending.iterrows():
     category = row["Category"]
     amount = row["Amount"]
-    progress = min(amount / 3000, 1.0)  # Limit to 100%
-    st.text(f"{category}: ${amount:,.2f} spent out of $3000")
+    progress = min(amount / 6000, 1.0)  # Limit to 100%
+    st.text(f"{category}: ${amount:,.2f} spent out of $6000")
     st.progress(progress)
 
 # Credit Card Section
@@ -148,7 +148,7 @@ ax.set_title("Weekly Spending Heatmap")
 st.pyplot(fig)
 
 # Chatbot for spending and budgeting insights
-st.subheader("Spending and Budgeting Insights Chatbot")
+st.subheader("Linked Accounts Insights")
 def chatbot_response(account_name):
     account = df_accounts[df_accounts["Account Name"] == account_name]
     if account.empty:
@@ -170,7 +170,7 @@ if st.button("Get Insights"):
     st.write(response)
 
 # Enhanced chatbot for spending categories
-st.subheader("Spending Insights Chatbot")
+st.subheader("Spending Insights")
 def spending_chatbot_response(category_name):
     category = df_spending[df_spending["Category"] == category_name]
     if category.empty:
