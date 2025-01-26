@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Initialize the app
-st.set_page_config(page_title="Total Balance and Linked Accounts", layout="wide", initial_sidebar_state="expanded")
-st.title("Total Balance and Linked Accounts")
+st.set_page_config(page_title="DECC International Banking Dashboard", layout="wide", initial_sidebar_state="expanded")
+st.title("DECC International Banking Dashboard")
 
 # Placeholder data for accounts
 accounts_data = [
