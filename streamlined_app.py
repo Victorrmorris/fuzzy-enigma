@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Initialize the app
-st.set_page_config(page_title="DECC International Banking Dashboard", layout="wide", initial_sidebar_state="expanded")
-st.title("DECC International Banking Dashboard")
+st.set_page_config(page_title="Total Balance and Linked Accounts", layout="wide", initial_sidebar_state="expanded")
+st.title("Total Balance and Linked Accounts")
 
 # Placeholder data for accounts
 accounts_data = [
@@ -25,9 +25,16 @@ spending_data = [
     {"Category": "Transportation", "Amount": 300}
 ]
 
+# Placeholder data for credit cards
+credit_card_data = [
+    {"Credit Card": "Star Card", "Balance": 1645.98, "Credit Limit": 3000.00},
+    {"Credit Card": "USAA", "Balance": 3774.12, "Credit Limit": 5000.00}
+]
+
 # Dataframe for accounts
 df_accounts = pd.DataFrame(accounts_data)
 df_spending = pd.DataFrame(spending_data)
+df_credit_cards = pd.DataFrame(credit_card_data)
 
 # Calculate total balance
 currency_conversion_rates = {"USD": 1, "EUR": 1.09}  # Example conversion rates
@@ -82,6 +89,35 @@ for _, row in df_spending.iterrows():
     st.text(f"{category}: ${amount:,.2f} spent out of $6000")
     st.progress(progress)
 
+# Credit Card Section
+st.subheader("Credit Card Overview")
+def calculate_utilization(balance, credit_limit):
+    return (balance / credit_limit) * 100
+
+df_credit_cards["Utilization (%)"] = df_credit_cards.apply(lambda row: calculate_utilization(row["Balance"], row["Credit Limit"]), axis=1)
+st.dataframe(df_credit_cards)
+
+# Credit Card Insights
+st.subheader("Credit Card Insights")
+def credit_card_insights(card_name):
+    card = df_credit_cards[df_credit_cards["Credit Card"] == card_name]
+    if card.empty:
+        return "We couldn't find any information for this credit card. Please try again."
+    balance = card.iloc[0]["Balance"]
+    credit_limit = card.iloc[0]["Credit Limit"]
+    utilization = card.iloc[0]["Utilization (%)"]
+    if utilization > 30:
+        return (f"The utilization on your {card_name} is high at {utilization:.2f}%. Paying down your balance from ${balance:,.2f} "
+                f"closer to ${0.3 * credit_limit:,.2f} could improve your credit score.")
+    else:
+        return (f"Your utilization on {card_name} is healthy at {utilization:.2f}%. Great job keeping your balance "
+                f"low relative to your credit limit of ${credit_limit:,.2f}.")
+
+selected_card = st.selectbox("Select a credit card to get insights:", df_credit_cards["Credit Card"].tolist())
+if st.button("Get Credit Card Insights"):
+    card_response = credit_card_insights(selected_card)
+    st.write(card_response)
+
 # Chatbot for spending and budgeting insights
 st.subheader("Linked Accounts Insights")
 def chatbot_response(account_name):
@@ -119,7 +155,7 @@ def spending_chatbot_response(category_name):
                 "to ensure you stay within budget. DECC can help you create custom visuals to analyze trends.")
     else:
         return (f"Your spending on {category_name} (${amount:.2f}) is within a healthy range. Good financial management! "
-                "Use DECC's tools to continue optimizing your cashflow and spending.")
+                "Use DECC's tools to continue optimizing your spending.")
 
 selected_category = st.selectbox("Select a spending category to get insights:", df_spending["Category"].tolist())
 if st.button("Get Spending Insights"):
