@@ -34,7 +34,7 @@ credit_card_data = [
 
 # Placeholder data for spending trends
 spending_trend_data = {
-    "Date": pd.date_range(start="2023-01-01", periods=12, freq="M"),
+    "Date": pd.date_range(start="2024-01-01", periods=12, freq="M"),
     "Spending": np.random.randint(500, 3000, 12)
 }
 
