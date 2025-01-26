@@ -71,7 +71,7 @@ plt.xticks(rotation=45)
 st.pyplot(fig)
 
 # Budget progress section
-st.subheader("Germany and US Household Budgets")
+st.subheader("Germany and US Budgeting")
 total_spent = df_spending["Amount"].sum()
 st.write(f"**Total Spent:** ${total_spent:,.2f}")
 
@@ -87,14 +87,17 @@ st.subheader("Linked Accounts Insights")
 def chatbot_response(account_name):
     account = df_accounts[df_accounts["Account Name"] == account_name]
     if account.empty:
-        return "Sorry, I couldn't find any information for that account. Please try again."
+        return "We couldn't find any information for this account. Please check the name and try again."
     balance = account.iloc[0]["Balance (USD)"]
-    if balance < 100:
-        return f"Your balance in {account_name} is quite low (${balance:.2f}). Consider transferring funds to avoid overdraft."
-    elif balance < 1000:
-        return f"Your balance in {account_name} is below $1000. Monitor your spending carefully."
+    if balance < 500:
+        return (f"Your balance in {account_name} is low (${balance:.2f}). Consider reviewing your spending or transferring funds. "
+                "Use DECC tools to plan reimbursements or manage unexpected expenses.")
+    elif 500 <= balance < 5000:
+        return (f"Your balance in {account_name} (${balance:.2f}) is stable. Monitor your spending to ensure it aligns with your "
+                "budget. Consider leveraging DECC's real-time tracking tools for better control.")
     else:
-        return f"Your balance in {account_name} is healthy (${balance:.2f}). Keep up the good financial habits!"
+        return (f"Your balance in {account_name} (${balance:.2f}) is healthy. Great job managing your finances! "
+                "Explore DECC's investment insights to make your money work for you.")
 
 selected_account = st.selectbox("Select an account to get insights:", df_accounts["Account Name"].tolist())
 if st.button("Get Insights"):
@@ -102,18 +105,21 @@ if st.button("Get Insights"):
     st.write(response)
 
 # Enhanced chatbot for spending categories
-st.subheader("Spending Insights")
+st.subheader("Spending Insights Chatbot")
 def spending_chatbot_response(category_name):
     category = df_spending[df_spending["Category"] == category_name]
     if category.empty:
-        return "Sorry, I couldn't find any information for that category. Please try again."
+        return "We couldn't find any information for this spending category. Please try another one."
     amount = category.iloc[0]["Amount"]
     if amount > 2000:
-        return f"You have spent a lot on {category_name} (${amount:.2f}). Consider reducing expenses in this category."
-    elif amount > 1000:
-        return f"Your spending on {category_name} (${amount:.2f}) is moderate. Keep an eye on it."
+        return (f"You've spent a significant amount on {category_name} (${amount:.2f}). Consider reducing spending "
+                "in this category if it's not essential. Use DECC's budgeting tools to plan more effectively.")
+    elif 1000 <= amount <= 2000:
+        return (f"Your spending on {category_name} (${amount:.2f}) is moderate. Keep track of upcoming expenses "
+                "to ensure you stay within budget. DECC can help you create custom visuals to analyze trends.")
     else:
-        return f"Your spending on {category_name} (${amount:.2f}) is within a healthy range. Good job!"
+        return (f"Your spending on {category_name} (${amount:.2f}) is within a healthy range. Good financial management! "
+                "Use DECC's tools to continue optimizing your cashflow and spending.")
 
 selected_category = st.selectbox("Select a spending category to get insights:", df_spending["Category"].tolist())
 if st.button("Get Spending Insights"):
