@@ -197,7 +197,6 @@ heatmap_data = np.array([
 heatmap_df = pd.DataFrame(heatmap_data, columns=["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
                           index=["Week 1", "Week 2", "Week 3", "Week 4", "Week 5"])
 
-
 # Heatmap Insights
 st.subheader("Heatmap Insights")
 st.markdown("### Key Observations:")
