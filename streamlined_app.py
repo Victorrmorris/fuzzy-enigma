@@ -71,7 +71,7 @@ plt.xticks(rotation=45)
 st.pyplot(fig)
 
 # Budget progress section
-st.subheader("Budget Management")
+st.subheader("Germany and Italy Budget Management")
 for _, row in df_spending.iterrows():
     category = row["Category"]
     amount = row["Amount"]
