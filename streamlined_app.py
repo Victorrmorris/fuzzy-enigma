@@ -17,6 +17,55 @@ accounts_data = [
     {"Account Name": "Greenlight (Kids)", "Balance": 300.00, "Currency": "USD"}
 ]
 
+# Placeholder data for Germany and US budgets
+germany_budget_data = [
+    {"Category": "Transportation", "Amount": 62.80},
+    {"Category": "Rent", "Amount": 1800.00},
+    {"Category": "Entertainment", "Amount": 154.67},
+    {"Category": "Education", "Amount": 123.54},
+    {"Category": "Utilities", "Amount": 179.20},
+    {"Category": "Groceries", "Amount": 845.98}
+]
+
+us_budget_data = [
+    {"Category": "Transportation", "Amount": 113.67},
+    {"Category": "Mortgage", "Amount": 1502.16},
+    {"Category": "Home Maintenance", "Amount": 312.43},
+    {"Category": "Utilities", "Amount": 416.82},
+    {"Category": "Groceries", "Amount": 456.89}
+]
+
+# Dataframe for budgets
+df_germany_budget = pd.DataFrame(germany_budget_data)
+df_us_budget = pd.DataFrame(us_budget_data)
+
+def plot_budget_pie(df, title):
+    fig, ax = plt.subplots(figsize=(6, 6))
+    ax.pie(df["Amount"], labels=df["Category"], autopct="%1.1f%%", startangle=140, colors=sns.color_palette("pastel"))
+    ax.set_title(title)
+    return fig
+
+st.subheader("My Monthly Spending Analysis")
+
+# Germany Budget
+st.write("### Germany Budget")
+germany_total_spent = df_germany_budget["Amount"].sum()
+st.metric(label="Total Spending (Germany)", value=f"${germany_total_spent:,.2f}", delta=f"of $3,200.00")
+fig_germany = plot_budget_pie(df_germany_budget, "Germany Budget Breakdown")
+st.pyplot(fig_germany)
+
+# US Budget
+st.write("### US Budget")
+us_total_spent = df_us_budget["Amount"].sum()
+st.metric(label="Total Spending (US)", value=f"${us_total_spent:,.2f}", delta=f"of $3,000.00")
+fig_us = plot_budget_pie(df_us_budget, "US Budget Breakdown")
+st.pyplot(fig_us)
+
+# Combined Budget Analysis
+total_combined_spent = germany_total_spent + us_total_spent
+remaining_combined_budget = 3200 + 3000 - total_combined_spent
+st.info(f"**AI Financial Analyst:** You have ${remaining_combined_budget:,.2f} remaining for both of your budgets this month.")
+
 # Placeholder data for spending categories
 spending_data = [
     {"Category": "Groceries", "Amount": 1200},
