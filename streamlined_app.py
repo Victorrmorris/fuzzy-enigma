@@ -75,17 +75,17 @@ total_combined_spent = germany_total_spent + us_total_spent
 remaining_combined_budget = 3200 + 3000 - total_combined_spent
 st.info(f"**AI Financial Analyst:** You have ${remaining_combined_budget:,.2f} remaining for both of your budgets this month.")
 
-# Placeholder data for credit cards
-credit_card_data = [
-    {"Credit Card": "Star Card", "Balance": 1645.98, "Credit Limit": 3000.00},
-    {"Credit Card": "USAA", "Balance": 3774.12, "Credit Limit": 5000.00}
-]
-
 # Placeholder data for spending trends
 spending_trend_data = {
     "Date": pd.date_range(start="2024-01-01", periods=12, freq="M"),
     "Spending": np.random.randint(500, 3000, 12)
 }
+
+# Placeholder data for credit cards
+credit_card_data = [
+    {"Credit Card": "Star Card", "Balance": 1645.98, "Credit Limit": 3000.00},
+    {"Credit Card": "USAA", "Balance": 3774.12, "Credit Limit": 5000.00}
+]
 
 # Dataframe for accounts
 df_accounts = pd.DataFrame(accounts_data)
