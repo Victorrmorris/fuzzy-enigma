@@ -105,7 +105,7 @@ if st.button("Get Insights"):
     st.write(response)
 
 # Enhanced chatbot for spending categories
-st.subheader("Spending Insights Chatbot")
+st.subheader("Spending Insights")
 def spending_chatbot_response(category_name):
     category = df_spending[df_spending["Category"] == category_name]
     if category.empty:
