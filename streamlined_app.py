@@ -201,3 +201,21 @@ selected_category = st.selectbox("Select a spending category to get insights:", 
 if st.button("Get Spending Insights"):
     category_response = spending_chatbot_response(selected_category)
     st.write(category_response)
+
+# Lifestyle Event Chat Dialog
+st.subheader("Lifestyle Event Support Chat")
+def lifestyle_event_response(prompt):
+    if "moving" in prompt.lower():
+        return "For frequent moves, consider consolidating accounts and using DECC's budgeting tools to track relocation expenses."
+    elif "deployment" in prompt.lower():
+        return "For deployments, use DECC's multi-currency tracking and reimbursement tools to stay on top of international expenses."
+    elif "retirement" in prompt.lower():
+        return "For retirement planning, explore DECC's investment insights and long-term budgeting features to maximize savings."
+    else:
+        return "We’re here to help! Please ask about moving, deployments, or retirement-related financial advice."
+
+lifestyle_prompts = ["I’m preparing for a move.", "How can I manage finances during a deployment?", "What tools does DECC offer for retirement planning?"]
+selected_prompt = st.selectbox("Choose a lifestyle event question:", lifestyle_prompts)
+if st.button("Get Lifestyle Support"):
+    lifestyle_response = lifestyle_event_response(selected_prompt)
+    st.write(lifestyle_response)
