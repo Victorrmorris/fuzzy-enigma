@@ -70,12 +70,14 @@ ax.set_xlabel("Category")
 plt.xticks(rotation=45)
 st.pyplot(fig)
 
-# Budget alerts and progress
+# Budget progress section
 st.subheader("Budget Management")
 for _, row in df_spending.iterrows():
     category = row["Category"]
     amount = row["Amount"]
-    st.progress(amount / 3000, text=f"{category}: ${amount:,.2f} spent out of $3000")
+    progress = min(amount / 3000, 1.0)  # Limit to 100%
+    st.text(f"{category}: ${amount:,.2f} spent out of $3000")
+    st.progress(progress)
 
 # Chatbot for spending and budgeting insights
 st.subheader("Linked Account Insights")
