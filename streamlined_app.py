@@ -75,8 +75,8 @@ st.subheader("Budget Management")
 for _, row in df_spending.iterrows():
     category = row["Category"]
     amount = row["Amount"]
-    progress = min(amount / 3000, 1.0)  # Limit to 100%
-    st.text(f"{category}: ${amount:,.2f} spent out of $3000")
+    progress = min(amount / 6000, 1.0)  # Limit to 100%
+    st.text(f"{category}: ${amount:,.2f} spent out of $6000")
     st.progress(progress)
 
 # Chatbot for spending and budgeting insights
