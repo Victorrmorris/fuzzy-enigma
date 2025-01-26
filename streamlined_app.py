@@ -188,14 +188,12 @@ if st.button("Get Credit Card Insights"):
 
 # Generate realistic spending heatmap data
 heatmap_data = np.array([
-    [120, 80, 90, 50, 60, 100, 70],  # Week 1 with moderate spending
-    [70, 90, 250, 60, 80, 120, 50],  # Week 2 with a high-spend day for a bill
-    [60, 75, 80, 400, 85, 90, 70],   # Week 3 with a large payment (e.g., rent)
-    [50, 60, 75, 100, 60, 85, 90],   # Week 4 with regular spending
-    [100, 80, 300, 60, 50, 120, 70]  # Week 5 with another high-spend day
+    np.random.randint(30, 115, size=7),  # Typical week with moderate spending
+    np.random.randint(30, 115, size=7),  # Another typical week
+    [250 if i == 2 else np.random.randint(30, 115) for i in range(7)],  # A high-spend day
+    np.random.randint(30, 115, size=7),  # Normal week
+    [400 if i == 5 else np.random.randint(30, 115) for i in range(7)]   # Another high-spend day
 ])
-heatmap_df = pd.DataFrame(heatmap_data, columns=["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-                          index=["Week 1", "Week 2", "Week 3", "Week 4", "Week 5"])
 
 # Heatmap Insights
 st.subheader("Heatmap Insights")
