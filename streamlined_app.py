@@ -71,19 +71,19 @@ plt.xticks(rotation=45)
 st.pyplot(fig)
 
 # Budget progress section
-st.subheader("Budget Management")
+st.subheader("Germant and US Household Budgets")
 total_spent = df_spending["Amount"].sum()
 st.write(f"**Total Spent:** ${total_spent:,.2f}")
 
 for _, row in df_spending.iterrows():
     category = row["Category"]
     amount = row["Amount"]
-    progress = min(amount / 3000, 1.0)  # Limit to 100%
-    st.text(f"{category}: ${amount:,.2f} spent out of $3000")
+    progress = min(amount / 6000, 1.0)  # Limit to 100%
+    st.text(f"{category}: ${amount:,.2f} spent out of $6000")
     st.progress(progress)
 
 # Chatbot for spending and budgeting insights
-st.subheader("Spending and Budgeting Insights Chatbot")
+st.subheader("Linked Accounts Insights")
 def chatbot_response(account_name):
     account = df_accounts[df_accounts["Account Name"] == account_name]
     if account.empty:
@@ -102,7 +102,7 @@ if st.button("Get Insights"):
     st.write(response)
 
 # Enhanced chatbot for spending categories
-st.subheader("Spending Insights Chatbot")
+st.subheader("Spending Insights")
 def spending_chatbot_response(category_name):
     category = df_spending[df_spending["Category"] == category_name]
     if category.empty:
